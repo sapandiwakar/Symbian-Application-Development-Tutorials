@@ -1,0 +1,118 @@
+
+<!-- saved from url=(0069)file:///D:/Study/4th%20sem/OOM/Software%20Engineering%20Help-desk.htm -->
+<HTML><HEAD><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<LINK rel="stylesheet" type="text/css" href="./YellowPages_files/master.css">
+<LINK rel="shortcut icon" href="http://seh.iiita.ac.in/images/ink.ico"> 
+<TITLE> Building the Yellow Pages Application </TITLE>
+<!-- note: update these tags><\!-->
+<META name="description" content="Building Yellow Pages Application">
+<META name="keywords" content="Symbian, Symbian Applications,
+Building Symbian Application, Symbian Tutorial, Tutorial on Building Symbian
+Applications, Yellow Pages Application, Symbian Classes">
+</HEAD><BODY>
+
+<TABLE>
+<TBODY><TR valign="top">
+
+<TD width="3%">
+
+</TD><TD width="94%">
+<H1>Building the Yellow Pages Application</H1>
+<HR color="d0d0b0" size="1%">
+<P>
+Last update: 21/06/09
+</P>
+
+        <P> Read the following chapters of the book, Developing Software for Symbian 
+          OS by Steve Babin. 
+          <!--note which book?> <\!-->
+          : 
+        <ol>
+          <li>Chapter 1: Smartphones and Symbian OS</li>
+          <li>Chapter 2: Symbian OS Quick Start</li>
+          <li>Chapter 4: Symbian OS Programming Basics</li>
+          <li>Chapter 6: Strings, Buffers, and Data Collection (Important)</li>
+          <li>Chapter 12: GUI Application Programming</li>
+        </ol>
+        This would require about 8-10 days. </p>
+        <p align="justify">In addition to this, we also referred to Nokia Forums, 
+          NewLC and the book, &quot;Quick Recipes on Symbian OS Mastering C++ 
+          Smartphone Development&quot; by Michael Aubert. (Section 4.1 : File 
+          Handling) 
+          <!-- is this a reference or did you read certain chapters><\!-->
+        </p>
+        <p>After reading the book we started off with a top-down design
+	 of the App (Use case analysis, class design, realization etc). </p>
+        <p>&nbsp;</p>
+        <H1>Application Use Case Analysis</h1>
+        <ol>
+          <li>User selects City from a list.</li>
+          <li>User selects Category from a list. <!-- note this is an include
+		use case of the first one></li><\!-->
+          <li>System presents the list of Companies and 
+            their phone numbers to the user.</li>
+        </ol>
+        <H1>Application Architecture</h1>
+	<p>A Symbian GUI App contains 4 classes:</p>
+        <ul>
+          <li>Application View. The root GUI control, this class 
+            implements the main window and acts as a container for the other application 
+            controls.</li>
+          <li>Application UI. This class instantiates the application 
+            view and handles the commands sent from the application&#8217;s GUI 
+            controls.</li>
+          <li>Application document. This class handles the non-GUI 
+            data aspects of the application &#8211; the application data. It also 
+            instantiates the application&#8217;s UI class.</li>
+          <li> 
+            <div align="left">Application. The main application 
+              class starts the application by instantiating and starting the document 
+              class. It also sets the application&#8217;s UID</div>
+          </li>
+        </ul>
+        <div align="center">
+          <p><img src="YellowPages_files/classes.JPG" width="788" height="492"> </p>
+          <p>&nbsp; </p>
+        </div>
+	    <!-- note: how do these resource link with the classes above?-->
+        <p>The application resource defines a significant part of how the application 
+          will appear and function. The resource file is a text file whose name 
+          ends in .rss, and is compiled into a binary form by the SDK&#8217;s 
+          resource compiler. This compiled version of the resource file is loaded 
+          onto the phone along with the application executable and is accessed 
+          during application execution. </p>
+        <p>For making the GUI components, we must first define the GUI components 
+          in the resource file. For our Yellow Pages, we first define a MenuBar. 
+          We defined a menubar with just one item, &quot;Select City&quot;. It 
+          should then display a dialog with a form to select the city.</p>
+        <p align="center"><img src="YellowPages_files/city.JPG" width="244" height="264"></p>
+        <p align="left">Selecting a City and saving then creates another form 
+          which provides options for selecting the category. </p>
+        <p align="center"><img src="YellowPages_files/category.JPG" width="242" height="262"></p>
+        <p align="left">After that, the data is read from a file and the names 
+          of companies and their phone numbers are dispayed in a MessageQueryDialog.</p>
+        <p align="center"><img src="YellowPages_files/box.JPG" width="243" height="265"></p>
+        <p align="center">&nbsp;</p>
+        <p></p>
+        <p align="left">The UI class handles the commands from these GUI resources, 
+          whereas the CYPagesForm &amp; CYPagesForm1 handle the dialog forms defined 
+          in the resource as follows. CYPagesForm &amp; CYpagesForm1 have methods 
+          like DynInitMenuPane which initializes the resource defined in the resource 
+          files using the resource id, and other methods to handle the forms. 
+        </p>
+        <div align="left"></div>
+        <p align="center">&nbsp;</p>
+<p>Download Application Source Code <a href="YellowPages_files/YPages1.rar">Here</a>.</p>
+        <p align="right"><a href="../Tutorial%20Start.htm">Back</a></p></TD>
+      <HR color="d0d0b0" size="1%">
+
+<TD width="3%">
+
+</TD></TR>
+
+</TBODY></TABLE>
+
+
+
+
+</BODY></HTML>

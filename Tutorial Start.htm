@@ -1,0 +1,157 @@
+
+<!-- saved from url=(0100)file:///D:/Study/4th%20sem/OOM/Symbian/Writing%20Symbian%20Applications/Exploring%20Symbian%20OS.htm -->
+<HTML><HEAD><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<LINK rel="stylesheet" type="text/css" href="./Tutorial Start_files/master.css">
+<LINK rel="shortcut icon" href="http://seh.iiita.ac.in/images/ink.ico"> 
+<TITLE> Building Symbian Applications</TITLE>
+<META name="description" content="A tutorial on biulding Symbian Applications">
+<META name="keywords" content="Symbian, Symbian Applications,
+Building Symbian Application, Symbian Tutorial, Tutorial on Building Symbian
+Applications">
+</HEAD><BODY>
+
+<TABLE>
+<TBODY><TR valign="top">
+
+<TD width="3%">
+
+</TD>
+      <TD width="94%"> <H1>Building Symbian Applications</H1>
+        <HR color="d0d0b0" size="1%"> 
+	<P>Last Update: 19/07/09</P>
+        <P>Symbian is a proprietary operating system designed for mobile devices, 
+          with associated libraries, user interface, frameworks and reference 
+          implementations of common tools, developed by Symbian Ltd. It is a descendant 
+          of Psion's EPOC.</P>
+        <P>A little history -- On 24 June 1998, Symbian Ltd. was formed as a partnership between Ericsson, 
+          Nokia, Motorola, and Psion, to exploit the convergence between PDAs 
+          and mobile phones. Symbian was previously owned by Nokia (56.3%), Ericsson 
+          (15.6%), Sony Ericsson (13.1%), Panasonic (10.5%), and Samsung (4.5%). 
+          Ten years later to the day, on 24 June 2008, Nokia announced that they 
+          intended to acquire all shares that they did not already own.
+	Subsequently, Nokia opened up the development of Symbian to
+	the broad industry by
+	creating the <A href="http://www.symbian.org/index.php">
+	Symbian Foundation</A>.</P>
+	    <P>In this tutorial,we describe how to get started with Symbian Programming 
+          by taking you through the installation steps, and then taking through 
+          the design of a sample application. This tutorial assumes that you have 
+          worked with C++ before and have a brief knowledge about classes, inheritence 
+          etc. If you are facing problems with these topics, please dont start 
+          this tutorial before making those concepts clear. This tutorial requires 
+          no previous knowledge about Symbian and will be taking you forward from 
+          the beginning. The first section in this tutorial describes the installation 
+          of the development environment for Symbian Programming and the second 
+          part starts from a top down class design for a sample application. </P>
+	<!-- Note: you need to complete this paragraph-->
+
+	<H1>Getting Started: Hardware and SDK Installation</H1>
+        <P>Part 1: The Hardware</P>
+        <P>The first thing you need is a PC / Monitor / mouse and Keyboard. <BR>
+          Almost any machine on market today can be used for development, however 
+          some would save you a bit of time:<BR>
+          don't pay too much attention to the CPU (just avoid if you can the entry 
+          level Celeron and Sempron)<BR>
+          ...but take as much RAM memory as you can. 1GB seems a minimal requirement 
+          if you consider doing serious development <BR>
+          ...a big fast hardisk (Speed is important to reduce compilation times 
+          and emulator start time, space is a requirement to handle all your SDKs. 
+          As an example, you will need 1GB for the S60 3rd FP1 SDK, 500MB for 
+          Carbide.c++, etc...). <BR>
+          also avoid Windows Vista for now... the ARM toolchain is not yet compatible 
+          with it.<BR>
+          If everything is ok on the hardware / operating side, you are almost 
+          ready to start... one last thing to check: make sure you have enough 
+          space on your C: drive. This is not an absolute requirement, but if 
+          you don't want to bother mounting virtual drive and editing configuration 
+          files again and again, you will need to install everything, the IDE, 
+          the SDK(s), your project(s) on C:... so a minimum of 2GB free space 
+          is required before starting installation (and this is a minimum!).</P>
+        <P> Part 2: The software development toolchain</P>
+        <P>Now let's go for a bit of downloading (btw, yes, you will probably 
+          need an Internet connection...). So download and install:<BR>
+          <A href="http://downloads.activestate.com/ActivePerl/Windows/5.6/ActivePerl-5.6.1.638-MSWin32-x86.msi">ActivePerl 
+          v5.6.1</A>. The latest 5.8 nor 5.10 versions won't probably work...<BR>
+          <A href="http://sw.nokia.com/id/7710eba7-4da7-4ddc-a52a-53b506cadb4a/Carbide_cpp_v2_0_en.exe">The 
+          Carbide.c++ IDE</A>. : Carbide.C++ is a software development tool for 
+          C++ development on Symbian OS. It is used to develop phones that use 
+          the OS, as well as applications that run on that phone. It is based 
+          on Eclipse IDE Platform enhanced with extra plugins to support Symbian 
+          OS development. The Express version (which is free) is enough if you 
+          are a student or just intend to learn Symbian OS development. The Developer 
+          version (or better) is required if you plan to do some commercial development.<BR>
+          To avoid any problem, be sure to install everything on C: in their default 
+          location.</P>
+        <P>The Software Development Toolchain: The SDKs</P>
+	    <!-- note briefly describe S60></!-->
+        <P>The S60 SDK : The S60 Platform (formerly Series 60 User Interface) 
+          is a software platform for mobile phones that runs on Symbian OS. S60 
+          is currently amongst the leading smartphone platforms in the world. 
+          It is owned by Nokia. S60 is licensed by Nokia to other manufacturers 
+          including Lenovo, LG Electronics, Panasonic and Samsung.</P>
+        <P> Download <A href="http://sw.nokia.com/id/577ad48d-290c-4bb5-8bdf-779ea8a5bc6c/S60_5th_Edition_SDK_v1_0_en.zip">the 
+          S60 SDK.</A><BR>
+          Install the SDK in its default directory and on the same drive as Carbide.c++<BR>
+          At the end of the installation, you will be prompted to install the 
+          CSL Arm Toolchain if it is not already installed on your machine. Make 
+          sure you install it or you won't be able to compile for the phone target.<BR>
+          Reboot your machine</P>
+        <P>The Software Development Toolchain: Checking the installation</P>
+        <P>At the command prompt type 'epoc'. The S60 emulator window should come 
+          up.</P>
+        <P align="center"><IMG src="./Tutorial Start_files/epoc.JPG" width="268" height="437"><BR>
+        </P>
+        <P>The Software Development Toolchain: Reference Book :</P>
+        <P>Developing Software for Symbian OS by Steve Babin.</P>
+        <P>The Software Development Toolchain: Getting Help</P>
+        <P>You can refer to following links for help in Symbian Programming</P>
+<!-- Note: The tutorial should be self-contained. This links should only serve
+as reference otherwise the material should be included inside this tutorial></!-->
+        <UL>
+          <LI><A href="http://www.forum.nokia.com/">Nokia Forums</A></LI>
+          <LI><A href="http://www.newlc.com/+-Symbian-OS-+.html">NewLC</A></LI>
+          <LI><A href="http://developer.symbian.com/">Symbian Developers</A></LI>
+        </UL>
+	<P>For more help, you can look up the examples 
+          provided with Carbide.C++ and the SDK. Here are the instructions to 
+          running the Hello World example in Carbide.C++:</P>
+        <UL>
+          <LI>Run Carbide.C++</LI>
+          <LI>Goto File -&gt; Import</LI>
+        </UL>
+        <P align="center">.<IMG src="./Tutorial Start_files/import.JPG" width="249" height="290"></P>
+        <UL>
+          <LI>Select Symbian OS -&gt; Symbian OS Build.inf File and click on Next.</LI>
+          <LI>Then browse to the directory where you installed Symbian SDK, and 
+            look for Examples in the subdirectories. The default location should 
+            be : C:\Symbian\9.2\S60_3rd_FP1_3\Examples. Once 
+            there, browse through Basics -&gt; HelloWorld. Select 
+            the bld.inf file and proceed further.</LI>
+        </UL>
+        <P align="center"><IMG src="./Tutorial Start_files/path_to_bld.JPG" width="330" height="269"></P>
+        <UL>
+          <LI>Proceed through the next screens checking all the check boxes and 
+            then Run the Project by Pressing Ctrl+F11 or by selecting Run -&gt; 
+            Run. </LI>
+        </UL>
+<H1>Building Your First Symbian Application</H1>
+        <UL>
+          <LI>Here we provide you with a brief description on how to build/start 
+            building your first app by taking you through our thought process 
+            for an application -- the <A href="Tutorial%20Start_files/YellowPagesApplication.htm">Yellow 
+            Pages Application</A>. 
+            <!-- note: describe the application somewhere></!-->
+            Click <A href="Tutorial%20Start_files/YellowPages.htm">here 
+            </A>to proceed.</LI>
+          <LI>For detailed tutorials, <a href="Tutorial%201.htm">Click here</a>.</LI>
+        </UL>
+        <HR color="d0d0b0" size="1%"> </TD>
+
+<TD width="3%">
+
+</TD></TR>
+
+</TBODY></TABLE>
+
+
+</BODY></HTML>

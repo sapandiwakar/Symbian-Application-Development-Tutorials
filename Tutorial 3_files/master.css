@@ -1,0 +1,9 @@
+body {background-color: #c0c0c0}
+body,p,h1,h2,h3,a,td,th {font-family: "courier new"}
+body,p,li,a,td {font-size: 12}
+h1,h2,h3 {font-size: 18; font-weight: normal}
+a {color: #ffff00; text-decoration: none}
+/*a:hover {text-decoration: underline}*/
+table {border-color: #d0d0b0}
+hr {color: #d0d0b0; size: 1%}
+ul {list-style-type: circle}

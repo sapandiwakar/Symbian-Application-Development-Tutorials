@@ -1,0 +1,110 @@
+
+<HTML><HEAD><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<LINK rel="stylesheet" type="text/css" href="./Tutorial 3_files/master.css">
+<LINK rel="shortcut icon" href="http://seh.iiita.ac.in/images/ink.ico"> 
+<TITLE>Tutorial 3</TITLE>
+<!-- note: update these tags><\!-->
+<META name="description" content="Building Yellow Pages Application">
+<META name="keywords" content="Symbian, Symbian Applications,
+Building Symbian Application, Symbian Tutorial, Tutorial on Building Symbian
+Applications, Yellow Pages Application, Symbian Classes">
+</HEAD><BODY>
+
+<HR color="d0d0b0" size="1%"><TABLE>
+<TBODY><TR valign="top">
+
+<TD width="3%">
+
+</TD>
+      <TD width="94%"> <H1>Tutorial 3: Creating Forms &amp; Supporting Multiple 
+          Languages </H1>
+        <HR color="d0d0b0" size="1%"> 
+        <P> Go through <A href="Tutorial%202.htm">Tutorial 
+          2 </A> first.</P>
+        <P>Last update: 19/07/09</P>
+        <P>In this tutorial, we look into more complex dialogs. For our application, 
+          we use the form dialog. A form displays a set of data fields in the 
+          form of a list, with each data field in the list consisting of a label 
+          and a control. The label can be on the same line as the control, or 
+          it can be on a separate line, with the control below it. In addition, 
+          a form dialog is automatically associated with a standard menu that 
+          supplies the options:<br>
+          Add field, Edit label, Delete field, Save and, optionally, Edit.</P>
+        <P>Selecting one of the first four of these options results in a call 
+          to the appropriate one of the CAknForm functions:AddItemL(), EditCurrentLabel(), 
+          DeleteCurrentItem() and SaveFormDataL(). In our application, we use 
+          only the save option which in turn calls the SaveFormDataL() function.<br>
+          An S60 form has two modes: in &#8216;view&#8217; mode it acts as an 
+          application view that displays a list of data items, and in &#8216;edit&#8217; 
+          mode it can be used to modify the data items displayed. By default, 
+          it starts up in &#8216;view&#8217; mode and you can switch to &#8216;edit&#8217; 
+          mode by selecting the Edit menu option. When you have finished editing 
+          the data, you press the right softkey (temporarily labeled Done)to return 
+          to the &#8216;view&#8217; mode. A form is actually more powerful than 
+          a dialog. If, for example, the data items it is displaying are the fields 
+          of a database record, you can<br>
+          implement the commands described above to add, delete, or modify entire 
+          records.<br>
+          You can specify that the form should be edit-only (via a fiag in the 
+          FORM resource), so that the form is always in &#8216;edit&#8217; mode, 
+          and in this case, the Edit menu option does not appear. </P>
+        <P>You can also override its DynInitMenuPaneL() to disable some or all 
+          of the other menu<br>
+          options. You specify a form in the resource file by creating a FORM 
+          resource and assigning it to the form attribute of a DIALOG resource 
+          (or a PAGE resource for multipage dialogs). The FORM resource contains 
+          the list of DLG LINES that specify the label and control for each field 
+          in the form&#8217;s list.</P>
+        <P>We can also provide support for multiple languages in the application 
+          through the rls file. While you can put text strings directly within 
+          the resource file, this is not recommended if you need your application 
+          to support different languages. Symbian recommends that you<br>
+          put all your strings into a RLS file, and then include this string file 
+          using #include in your RSS file. There should be a separate RLS file 
+          for each language you support.<br>
+          Each string in the RLS file is defined using the rls string keyword.<br>
+          For example:<br>
+          rls_string STRING_r_gui_start &quot;Start&quot;</P>
+        <P>As you can see, the DIALOG resource defines the flags and softkeys, 
+          and the form attribute points to a FORM resource. This resource specifies 
+          the dialog&#8217;s content which, in this case, consists of one dialog 
+          line: a S60-specific control, known as a pop-up field (type EAknCtPopupFieldText 
+          and control structure POPUP FIELD), which is used to select the city. 
+          The FORM resource has an additional flags attribute, which is used here 
+          to set each control and its prompt to be displayed on separate lines, 
+          and to set the &#8216;edit only&#8217; mode that was mentioned earlier. 
+          We also define the list of cities to appear in the popup field using 
+          a RESOURCE ARRAY r_city_list.</P>
+        <P>PreLayoutDynInit() is overridden to set the initial values of the controls 
+          in the form. We also override the SaveFormDataL() method to perform 
+          the save operations. For our application, we obtain the index of the 
+          selected city from the popup menu using the CurrentValueIndex() method 
+          in popupFieldText. we then print a dialog similar to the one printed 
+          in the second app to display the selected city index. The descriptor 
+          method Format() does this. The format string supplied to Format() is 
+          very similar to the format string in C, supporting %d, %s, %f, etc.</P>
+        <P>This wont display the form on the screen. To make the form appear on 
+          the screen once we select the start menu item, we need to handle the 
+          command in HandleCommand() method in Application Ui Class. We create 
+          a new form object and execute R_THIRDAPP_DIALOG which was defined in 
+          the resource file.</P>
+        <BLOCKQUOTE> 
+          <DIV align="left"> 
+            <HR color="d0d0b0" size="1%">
+          </DIV>
+        </BLOCKQUOTE>
+        <P>Download Application Source Code <A href="Tutorial%203_files/ThirdApp.rar">Here</A>.</P>
+        <P><a href="Tutorial%204.htm">Next</a></P>
+        </TD>
+      
+
+<TD width="3%">
+
+</TD></TR>
+
+</TBODY></TABLE>
+
+
+
+
+</BODY></HTML>

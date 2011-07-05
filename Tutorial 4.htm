@@ -1,0 +1,105 @@
+
+<!-- saved from url=(0064)file:///D:/Study/4th%20sem/OOM/Symbian/Tutorial/Tutorial%203.htm -->
+<HTML><HEAD><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<LINK rel="stylesheet" type="text/css" href="./Tutorial 4_files/master.css">
+<LINK rel="shortcut icon" href="http://seh.iiita.ac.in/images/ink.ico"> 
+<TITLE>Tutorial 4</TITLE>
+<!-- note: update these tags><\!-->
+<META name="description" content="Building Yellow Pages Application">
+<META name="keywords" content="Symbian, Symbian Applications,
+Building Symbian Application, Symbian Tutorial, Tutorial on Building Symbian
+Applications, Yellow Pages Application, Symbian Classes">
+</HEAD><BODY>
+
+<HR color="d0d0b0" size="1%"><TABLE>
+<TBODY><TR valign="top">
+
+<TD width="3%">
+
+</TD>
+      <TD width="94%"> <H1>Tutorial 4: Building the Yellow Pages Application</H1>
+        <HR color="d0d0b0" size="1%"> <P> Go through <A href="Tutorial%203.htm">Tutorial 
+          3</A> first.</P>
+        <P>Last update: 19/07/09</P>
+        <P>In this tutorial, we would build a Yellow Pages Application. We will 
+          continue it from the last tutorial and extend it to have one more form 
+          and another dialog, the MessageQueryDialog to display the required data. 
+          We will also look into Symbian File Handling to retrieve the data about 
+          businesses. </P>
+        <P>First, add another form in the resource file in a similar fashion as 
+          the earlier form(define a resource in resource file and class to handle 
+          the form events) to provide for selection of category. Go through the 
+          previous tutorial if you have any problems in adding another form. Once 
+          the form is added, we need to execute the form after the city is successfuly 
+          selected in the first form. To do this, we make a new form object in 
+          the SaveFormDataL() method of the first form(just like we did in HandleCommand 
+          for the first form). Once, we have extracted the city and categories, 
+          we will now extract the corresponding information about the businesses 
+          in the city for the category from te file that we have stored in the 
+          phone's memory.(You need to make those files(or copy them from the YPages 
+          folder) and place them in the memory) For running the application on 
+          the emulator, just place the folder YPages from the current directory 
+          to the SDK's winscw folder(Default Path : &quot;C:\S60\devices\S60_5th_Edition_SDK_v1.0\epoc32\winscw\d&quot;).</P>
+        <P><strong>File Handling in Symbian:</strong></P>
+        <BLOCKQUOTE> 
+          <p>First, you need to obtain a handle to File Server session and connect 
+            to it. You can do this by:</p>
+          <blockquote> 
+            <blockquote> 
+              <p>RFs fileServer;<br>
+                User :: LeaveIfError (fileServer.Connect());</p>
+            </blockquote>
+          </blockquote>
+          <p>Now, we will use the RFile class to read data. Open the file for 
+            reading. The EFileStreamText flag denotes that the file opened is 
+            a text file. The EOF is indicated by the return value of TTextFile::Read(), 
+            which is KErrEof.</p>
+          <blockquote> 
+            <blockquote> 
+              <p>RFile file;<br>
+                User::LeaveIfError(file.Open(fileServer, KMyTextFile, EFileRead|EFileStreamText));</p>
+            </blockquote>
+          </blockquote>
+          <p>The class to read a text file is TFileText. It is declared in f32file.h 
+            header file and a library named efsrv.lib(add this to the mmp file). 
+            Before using TFileText, we have to open a file using RFile because 
+            TFileText does not have an Open method. TTextFile has Read() method 
+            which requires a 16 bit descriptor parameter because Symbian OS stores 
+            text files in unicode format. Do not use TFileText to open a file 
+            other than unicode. we will get garbage characters if trying to access 
+            non Unicode files, such as ASCII files. Go through the source code 
+            to understand clearly.</p>
+          <p>Close the file server session after the reading is completed.</p>
+        </BLOCKQUOTE>
+        <p>After successfuly reading data from the file, we will now print the 
+          read data in a MessageQueryDialog. We must first define the resoruce 
+          for this dialog. We have defined a r_about_heading_pane resource in 
+          the resource file. It is similar to previous dialogs, define the flags, 
+          cba function, and items. the difference here is that we do not define 
+          a for for this dialog. Instead we define 2 items, heading pane, and 
+          a CAknMessageQuery to hold the text. </p>
+        <p>After defining the resource in the resource file, we must execute the 
+          resource in the SaveFormDataL() after reading the data from file. For 
+          this, create a new object of type CAknMessageQueryDialog and Prepare 
+          it with the resource defined in the resource file. Then, set the header 
+          text and finally call RunLD() on dialog to display it. The text to be 
+          displayed in the dialog was passed alongwith the dialog's constructor 
+          while making the new object.</p>
+        <BLOCKQUOTE>
+          <DIV align="left"> 
+            <HR color="d0d0b0" size="1%">
+          </DIV>
+        </BLOCKQUOTE>
+        <P>Download Application Source Code <A href="Tutorial%204_files/YPages1.rar">Here</A>.</P></TD>
+      
+
+<TD width="3%">
+
+</TD></TR>
+
+</TBODY></TABLE>
+
+
+
+
+</BODY></HTML>

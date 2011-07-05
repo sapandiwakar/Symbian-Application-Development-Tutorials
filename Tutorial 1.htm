@@ -1,0 +1,191 @@
+
+<!-- saved from url=(0063)file:///D:/Study/4th%20sem/OOM/Symbian/Tutorial/YellowPages.htm -->
+<HTML><HEAD><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<LINK rel="stylesheet" type="text/css" href="./Tutorial 1_files/master.css">
+<LINK rel="shortcut icon" href="http://seh.iiita.ac.in/images/ink.ico"> 
+<TITLE>Tutorial 1</TITLE>
+<!-- note: update these tags><\!-->
+<META name="description" content="Building Yellow Pages Application">
+<META name="keywords" content="Symbian, Symbian Applications,
+Building Symbian Application, Symbian Tutorial, Tutorial on Building Symbian
+Applications, Yellow Pages Application, Symbian Classes">
+</HEAD><BODY>
+
+<HR color="d0d0b0" size="1%"><TABLE>
+<TBODY><TR valign="top">
+
+<TD width="3%">
+
+</TD>
+      <TD width="94%"> <H1>Tutorial 1 : Learning the basics</H1>
+        <HR color="d0d0b0" size="1%">
+        <p> Go through <A href="Tutorial%20Start.htm">Tutorial Start</A> first.</p>
+        <P> Last update: 19/07/09</P>
+        <P>Now that you have downloaded the SDK and know how to make projects 
+          in Carbide, we will now look into our first GUI Application which prints 
+          a line of text in the center of the screen. The main goal of this tutorial 
+          is to get a feel for developing a basic application by actually building 
+          and running one on the emulator. </P>
+        <P>Application Architecture
+        </P><P>A minimal Symbian GUI Application must contain the following 4 classes:</P>
+        <UL>
+          <LI><STRONG>Application View</STRONG>: The view class implements the 
+            application’s screen display, including drawing the window and 
+            the creation of the initial screen controls. The class is inherited 
+            from CCoeControl which is fine for Applications with just one view 
+            class. We would only be discussing a single view class for now.</LI>
+          <LI><STRONG>Application UI</STRONG>: This class instantiates the application 
+            view and handles the commands sent from the application’s GUI 
+            controls. </LI>
+          <LI><STRONG>Application document:</STRONG> This class handles the non-GUI 
+            data aspects of the application – the application data. It also 
+            instantiates the application’s UI class.</LI>
+          <LI><STRONG>Application</STRONG>: This class is used to identify the 
+            application (by returning the application’s UID) and to instantiate, 
+            and return a pointer to, your application’s document class.</LI>
+        </UL>
+        <DIV align="center"> 
+          <P><IMG src="./Tutorial 1_files/classes.JPG" width="788" height="492"> 
+          </P>
+          <P>&nbsp; </P>
+        </DIV>
+        <!-- note: how do these resource link with the classes above?-->
+        <P>Now let us discuss these classes one by one. </P>
+        <UL>
+          <LI><STRONG>Application View Class</STRONG>: 
+            <BLOCKQUOTE> 
+              <P>The application view class handles the presentation of your application 
+                on the smartphone’s screen, as well as allowing the user 
+                to interact with your program. In Symbian OS all objects drawn 
+                to a screen are controls – including the application view, 
+                which is a custom control. It has the following methods:</P>
+              <UL>
+                <LI>NewL, NewLC and ConstructL : These methods construct a new 
+                  object of the view class. We will discuss about why we took 
+                  these 3 methods and not just the constructor to construct the 
+                  new object later in error handling.</LI>
+                <LI>Draw(): Draw() is a method called by the framework for every 
+                  control in order to draw it to the screen. The application view 
+                  is a control, and, we implement the Draw() function to output 
+                  the text ‘First Application’ in the center of the 
+                  window. The drawing is performed by opening a graphics context 
+                  (GC), getting a font, and calling the context’s DrawText() 
+                  function. Cleanup is performed on the font upon<BR>
+                  completion.(Cleanup will be explained in error handling.)</LI>
+              </UL>
+            </BLOCKQUOTE>
+          </LI>
+          <LI><STRONG>Application Ui Class:</STRONG> 
+            <BLOCKQUOTE> 
+              <P>Your application’s UI class is responsible, upon construction, 
+                for creating the application’s default view. In S60, for 
+                basic one-view applications (i.e., the view is a simple control), 
+                the UI class contains the command handler that handles all the 
+                commands the users initiate via the GUI. If you are using multiple 
+                views, however, this command handler would be in the view class. 
+                It has the following methods:</P>
+              <UL>
+                <LI>ConstructL(): This function does the work of construction 
+                  of an object of View Class.</LI>
+                <LI>HandleCommandL(): This function handles the commands passed 
+                  from the Application's GUI controls. In this application, we 
+                  just need to handle the commands for exiting the application.</LI>
+              </UL>
+            </BLOCKQUOTE>
+          </LI>
+          <LI><STRONG>Application Document Class:</STRONG> 
+            <BLOCKQUOTE> 
+              <P>The document class has two purposes, the first of which is to 
+                represent the application’s persistent data(Data that needs 
+                to remain after application is exited). The other is to create 
+                the application UI instance in which this data (if any) can be 
+                manipulated. For applications that have no persistent data, and 
+                therefore are not file-based, the document class simply implements 
+                the CreateAppUiL() function to return the application’s 
+                UI object.</P>
+            </BLOCKQUOTE>
+          </LI>
+          <LI><STRONG>Application Class:</STRONG> 
+            <BLOCKQUOTE> 
+              <P>This is the first thing the GUI framework creates. It has the 
+                following methods:</P>
+              <UL>
+                <LI>CreateDocumentL(): This function creates an object of Document 
+                  class and returns a pointer to it.</LI>
+                <LI>AppDllUid(): This function returns the Application's Uid.</LI>
+              </UL>
+            </BLOCKQUOTE>
+          </LI>
+        </UL>
+        <P><STRONG>E32Main()Entrypoint and NewApplication()</STRONG></P>
+        <BLOCKQUOTE> 
+          <P>A Symbian OS GUI application is a process executable (EXE file) and 
+            therefore must contain an E32Main() entrypoint function. For a GUI 
+            application this just calls EikStart::RunApplication(), passing it 
+            a pointer to a function that returns the application object to run.</P>
+        </BLOCKQUOTE>
+        <P><STRONG>Resource Files:</STRONG></P>
+        <P>The application resource defines a significant part of how the application 
+          will appear and function. The resource file is a text file whose name 
+          ends in .rss, and is compiled into a binary form by the SDK’s 
+          resource compiler. This compiled version of the resource file is loaded 
+          onto the phone along with the application executable and is accessed 
+          during application execution. </P>
+        <UL>
+          <LI>The RSS_SIGNATURE resource is used to validate the file and must 
+            appear, exactly as shown <BR>
+            below, as the first resource in every appliation's resource file. 
+            <BLOCKQUOTE> 
+              <P>RESOURCE RSS_SIGNATURE<BR>
+                {<BR>
+                }</P>
+            </BLOCKQUOTE>
+          </LI>
+          <LI>TBUF Resource defines the default document name. As a document is 
+            not used in the application, it is left blank.</LI>
+          <LI> The EIK_APP_INFO Resource defines a Control Button Array(cba) resource 
+            that defines the function of the left and right softkeys. We define 
+            the cba as "R_AVKON_SOFTKEYS_EXIT". This defines the right 
+            softkey as exit and generates the command "EAknSoftkeyBack" 
+            when activated which is in turn handled by the Application UI class.</LI>
+        </UL>
+        <P><STRONG>Application Registration Resource File</STRONG>:</P>
+        <BLOCKQUOTE> 
+          <P> GUI applications are EXE files in the sys\bin directory and in order 
+            for the device to recognize an executable as a GUI application, and 
+            to display them on the desktop for user selection, the application 
+            must be registered via a special resource file known as a<BR>
+            registration resource file. The source file names are typically &lt;application 
+            name&gt; reg.rss. Walkthrough the reg_rss file for more details.</P>
+        </BLOCKQUOTE>
+        <P><STRONG>Project Build Files</STRONG></P>
+        <BLOCKQUOTE> 
+          <P>These are the files that define how to build a project:</P>
+          <UL>
+            <LI>FirstApp.mmp: It defines what source and resource files should 
+              be compiled and what libraries should be used for linking. The locations 
+              to search for project-defined and system include files, and source 
+              files and locations, are also defined</LI>
+            <LI>bld.inf: The file bld.inf points the build tools to the correct 
+              project definition<br>
+              (MMP) file.</LI>
+          </UL>
+        </BLOCKQUOTE>
+        <DIV align="left"> 
+          <HR color="d0d0b0" size="1%">
+        </DIV>
+        <P>Download Application Source Code <A href="Tutorial%201_files/FirstApp.rar">Here</A>.</P>
+        <P><a href="Tutorial%202.htm">Next</a></P>
+        </TD>
+      
+
+<TD width="3%">
+
+</TD></TR>
+
+</TBODY></TABLE>
+
+
+
+
+</BODY></HTML>

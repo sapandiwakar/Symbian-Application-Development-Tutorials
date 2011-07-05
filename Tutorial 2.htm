@@ -1,0 +1,96 @@
+
+<HTML><HEAD><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<LINK rel="stylesheet" type="text/css" href="./Tutorial 2_files/master.css">
+<LINK rel="shortcut icon" href="http://seh.iiita.ac.in/images/ink.ico"> 
+<TITLE>Tutorial 2</TITLE>
+<!-- note: update these tags><\!-->
+<META name="description" content="Building Yellow Pages Application">
+<META name="keywords" content="Symbian, Symbian Applications,
+Building Symbian Application, Symbian Tutorial, Tutorial on Building Symbian
+Applications, Yellow Pages Application, Symbian Classes">
+</HEAD><BODY>
+
+<HR color="d0d0b0" size="1%"><TABLE>
+<TBODY><TR valign="top">
+
+<TD width="3%">
+
+</TD>
+      <TD width="94%"> <H1>Tutorial 2 : First Dialog</H1>
+        <HR color="d0d0b0" size="1%"> <P> Go through <a href="Tutorial%201.htm">Tutorial 
+          1</a> first.</P>
+        <P>Last update: 19/07/09</P>
+        <P>Now that you know how to print text on the screen, lets go to a little 
+          more complex application. We are going to add a menu to the application, 
+          how to handle commands in a little more detail, and finally create an 
+          alert dialog.</P>
+        <P>Here are the changes that it makes to the first tutorial. </P>
+        <ul>
+          <li>Add the menu bar resource in the resource file to display the menu. 
+            The menubar attribute of EIK APP INFO is assigned a resource of type 
+            MENU BAR, which specifies the application&#8217;s default menu. Menu 
+            bar resources have one or more menu titles (type MENU TITLE), and 
+            each menu title points to a menu pane (type MENU PANE). The menu bar 
+            in the example, r_SecondApp_menubar, has a single menu title and this 
+            points to menu pane r_SecondApp_menu. Menu panes define the actual 
+            menu items (type MENU ITEM), which the user selects to invoke some 
+            operation in the application. r_SecondApp_menu defines a menu item 
+            labeled &#8216;Start&#8217; that sends the command ESecondAppCommand 
+            to the GUI command handler code when the user selects it (so the code 
+            can display the Application&#8217;s dialog). </li>
+          <li>Now, we need to define the command codes used in the resource file. 
+            These are defined in the .hrh file. The file SecondApp.hrh contains 
+            the command values that the controls send (specified in the resource 
+            file) for the application code to handle. In this case we have only 
+            one, used when Start is selected:<br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enum TSecondAppIds<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ESecondAppCommand 
+            = 1<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;};</li>
+          <li>When the menu item &#8216;Start&#8217; is selected, the GUI framework 
+            invokes the HandleCommandL() method, passing it the command ESecondAppCommand 
+            (the command specified in the menu resource in the SecondApp.rss file). 
+            HandleCommandL() responds to this command by popping up an alert window 
+            with the message &#8216;Your First Dialog!&#8217;.We can use the iEikonEnv-&gt;AlertWin() 
+            function for the pop-up since this is a core GUI method available 
+            to all platforms. This function takes one arguement which is a descriptor. 
+            <ul>
+              <li>Descriptors are classes that represent data buffers and allow 
+                you to safely access them. Symbian OS uses descriptors to store 
+                and manipulate strings (as opposed to NULL-terminated C strings), 
+                as well as to manage binary data. Descriptor classes, although 
+                containing many features, are optimized for minimal overhead, 
+                since they are designed to run on memory-constrained devices. 
+                There are multiple descriptor classes available in Symbian. You&#8217;ll 
+                need to use descriptors to call many of the Symbian OS API functions.</li>
+              <li>A String Literal(Descriptor) in Symbian is declared as:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>_LIT(KMessage,&quot;My First 
+                Dialog!&quot;);</strong><br>
+                The LIT macro is called to take the string &quot;My First Dialog!&quot; 
+                and stores both the string and the string&#8217;s size in the 
+                descriptor literal KMessage.</li>
+            </ul>
+          </li>
+        </ul>
+        <blockquote> 
+          <DIV align="left"> 
+            <HR color="d0d0b0" size="1%">
+          </DIV>
+        </blockquote>
+        <P>Download Application Source Code <A href="Tutorial%202_files/SecondApp.rar">Here</A>.</P>
+        <P><a href="Tutorial%203.htm">Next</a></P>
+        </TD>
+      
+
+<TD width="3%">
+
+</TD></TR>
+
+</TBODY></TABLE>
+
+
+
+
+</BODY></HTML>
